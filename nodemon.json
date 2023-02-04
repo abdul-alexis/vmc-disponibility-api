@@ -1,0 +1,13 @@
+{
+    "env": {
+        "MYSQL_USER": "user_dash",
+        "MYSQL_PASSWORD": "9Zsq~f;#XMJ,)H-U",
+        "MYSQL_DATABASE": "vmcdash",
+        "MYSQL_HOST": "35.198.22.53",
+        "MYSQL_PORT": "3306",
+        "JWT_SECRET": "84TI$su7TXEZ!0g#lT",
+        "SERVER_URL":"http://localhost:8081",
+        "SBC_USER":"abdul",
+        "SBC_PASSWORD":"Cruzeiro22"
+    }
+}
