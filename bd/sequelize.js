@@ -8,9 +8,10 @@ const sequelize = new Sequelize(process.env.MYSQL_DATABASE, process.env.MYSQL_US
     dialect: 'mysql',
     dialectOptions: {
         ssl: {
-          key: fs.readFileSync(__dirname + './../certs/client-key.pem'),
-          cert:fs.readFileSync(__dirname + './../certs/client-cert.pem'),
-          ca:  fs.readFileSync(__dirname + './../certs/server-ca.pem')
+           
+          key: fs.readFileSync( path.join(__dirname, '..', 'certs', 'client-key.pem')),
+          cert:fs.readFileSync( path.join(__dirname, '..', 'certs', 'client-cert.pem')),
+          ca:  fs.readFileSync( path.join(__dirname, '..', 'certs', 'server-ca.pem'))
         }
       },
     pool: {
