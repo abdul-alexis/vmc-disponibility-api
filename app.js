@@ -45,6 +45,7 @@ const specs = swaggerJsDoc(options);
 const route_status = require('./routes/route-status');
 const route_event = require('./routes/route-event');
 const route_user = require('./routes/route-user');
+const route_entry = require('./routes/route-entry');
 
 
 
@@ -60,10 +61,11 @@ app.use(bodyParser.json()); // apenas json de entrada no body
 app.use(cors());
 
 //aqui vão as rotas
-app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
 app.use('/api/status', route_status);
 app.use('/api/event', route_event);
 app.use('/api', route_user);
+app.use('/', route_entry)
 
 
 app.use((req, res, next) => {
