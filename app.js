@@ -30,11 +30,6 @@ const options = {
                 },
             },
         },
-        security: [
-            {
-                bearerAuth: [],
-            },
-        ],
     },
     apis: ["./routes/*.js"],
 };

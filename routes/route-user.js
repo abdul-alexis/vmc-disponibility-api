@@ -55,9 +55,15 @@ const isAdmin = require('../middlewares/isAdmin');
  /**
  * @swagger
  * /api/login:
- *   post:
+  *   post:
  *     summary: Returns the user token access
  *     tags: [User]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/User'
  *     responses:
  *       200:
  *         description: The token access of the User
@@ -101,6 +107,8 @@ router.post('/login', async (req, res) => {
  * @swagger
  * /api/user:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Returns the list of all the Users
  *     tags: [User]
  *     responses:
@@ -124,6 +132,8 @@ router.get('/user', authenticated, isAdmin, user.getAllUsers);
  * @swagger
  * /api/user/{id}:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Get the user by id
  *     tags: [User]
  *     parameters:
@@ -147,7 +157,9 @@ router.get('/user/:id', authenticated, isAdmin,user.getById);
 /**
  * @swagger
  * /api/user:
- *   post:
+  *   post:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Create a new user
  *     tags: [User]
  *     requestBody:
@@ -171,6 +183,8 @@ router.post('/user', authenticated, isAdmin, user.save);
  * @swagger
  * /api/user/{id}:
  *  put:
+ *    security:
+ *       - bearerAuth: []
  *    summary: Update the user by the id
  *    tags: [User]
  *    parameters:
@@ -203,7 +217,9 @@ router.put('/user/:id', authenticated, isAdmin, user.update);
 /**
  * @swagger
  * /api/user/{id}:
- *   delete:
+ *  delete:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Remove the user by id
  *     tags: [User]
  *     parameters:

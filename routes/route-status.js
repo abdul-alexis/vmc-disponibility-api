@@ -27,6 +27,8 @@ const authenticated = require('../middlewares/authenticated');
  * @swagger
  * /api/status:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Returns the sbc server status
  *     tags: [Status]
  *     responses:

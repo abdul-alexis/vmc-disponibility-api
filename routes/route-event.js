@@ -60,6 +60,8 @@ const isAdmin = require('../middlewares/isAdmin');
  * @swagger
  * /api/event:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Returns the list of all the Events
  *     tags: [Event]
  *     responses:
@@ -86,6 +88,8 @@ router.get('/byEndEventDate',authenticated,event.getByEndEventDate);
  * @swagger
  * /api/event/{id}:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Get the event by id
  *     tags: [Event]
  *     parameters:
@@ -110,6 +114,8 @@ router.get('/:id',authenticated,event.getById);
  * @swagger
  * /api/event:
  *   post:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Create a new event
  *     tags: [Event]
  *     requestBody:
@@ -133,6 +139,8 @@ router.post('/',authenticated,isAdmin,event.save);
  * @swagger
  * /api/event/{id}:
  *  put:
+ *    security:
+ *       - bearerAuth: []
  *    summary: Update the event by the id
  *    tags: [Event]
  *    parameters:
@@ -166,6 +174,8 @@ router.put('/:id',authenticated,isAdmin,event.update);
  * @swagger
  * /api/event/{id}:
  *   delete:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Remove the event by id
  *     tags: [Event]
  *     parameters:
