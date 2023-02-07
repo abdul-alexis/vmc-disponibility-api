@@ -57,7 +57,7 @@ app.use(bodyParser.json()); // apenas json de entrada no body
 
 
 //aplicando CORS
-app.use(cors({ origin: false }));
+app.use(cors());
 
 //aqui vão as rotas
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
