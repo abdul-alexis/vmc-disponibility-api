@@ -47,7 +47,6 @@ exports.save = async (req, res) => {
 exports.update = async (req, res) => {
     try {
         let { name, email, isAdmin } = req.body;
-        let hash = await bcrypt.hash(password, 10);
         const [updated] = await User.update({ name, email, isAdmin }, {
             where: { id: req.params.id }
         });
