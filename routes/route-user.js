@@ -21,6 +21,9 @@ const isAdmin = require('../middlewares/isAdmin');
  *         id:
  *           type: integer
  *           description: The auto-generated id of the User
+ *         name:
+ *            type: string
+ *            description: The name of the User
  *         email:
  *           type: string
  *           description: The User email
@@ -32,6 +35,7 @@ const isAdmin = require('../middlewares/isAdmin');
  *           description: The User access nivel
  *       example:
  *         id: 6
+ *         name: Teste API
  *         email: teste@teste.com
  *         isAdmin: false
  *         password: Api#1234
@@ -214,6 +218,41 @@ router.post('/user', authenticated, isAdmin, user.save);
  */
 
 router.put('/user/:id', authenticated, isAdmin, user.update);
+/**
+ * @swagger
+ * /api/user/{id}/password:
+ *  put:
+ *    security:
+ *       - bearerAuth: []
+ *    summary: Update the user password
+ *    tags: [User]
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: integer
+ *        required: true
+ *        description: The user id
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/User'
+ *    responses:
+ *      200:
+ *        description: The user password was updated
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/User'
+ *      404:
+ *        description: The user was not found
+ *      500:
+ *        description: Some error happened
+ */
+
+router.put('/user/:id/password', authenticated, isAdmin, user.updatePassword)
 /**
  * @swagger
  * /api/user/{id}:

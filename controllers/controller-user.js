@@ -46,9 +46,30 @@ exports.save = async (req, res) => {
 //atualizar o usuario
 exports.update = async (req, res) => {
     try {
-        let { name, email, password } = req.body;
+        let { name, email, isAdmin } = req.body;
         let hash = await bcrypt.hash(password, 10);
-        const [updated] = await User.update({ name, email, hash }, {
+        const [updated] = await User.update({ name, email, isAdmin }, {
+            where: { id: req.params.id }
+        });
+        if (updated) {
+            const user = await User.findByPk(req.params.id);
+            res.json(user);
+        } else {
+            res.status(404).send('Usuário não encontrado');
+        }
+
+    } catch (error) {
+        console.log('error :>> ', error);
+        return res.status(500).json(error)
+    }
+}
+
+//atualizar senha o usuario
+exports.updatePassword = async (req, res) => {
+    try {
+        let { password } = req.body;
+        let hash = await bcrypt.hash(password, 10);
+        const [updated] = await User.update({ hash }, {
             where: { id: req.params.id }
         });
         if (updated) {
