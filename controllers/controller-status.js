@@ -59,3 +59,35 @@ exports.getDisponibility = async (req, res) => {
         return res.status(404).send({error})
     }
 }
+
+//retornar a pagina inicial
+exports.getMonthDisponibility = async (req, res) => {
+    try {
+        let initial= new Date( new Date().getFullYear()+"-" + (new Date().getMonth()+1)+ "-01")
+        let final= new Date()
+        // console.log('initial :>> ', initial);
+        // console.log('final :>> ', final);
+        const events = await Event.findAll({
+            attributes: ['id','startDate', 'endDate'],
+            where: {
+                startDate: {
+                    [Op.gte]: new Date(initial),
+                    [Op.lt]: new Date(final)
+                }
+            }
+
+        });
+        let tempoGastoAcumulado=0;
+        events.forEach(event => {
+            tempoGastoAcumulado+=(event.endDate-event.startDate)
+            
+        });
+        let indisponibility=parseFloat(((tempoGastoAcumulado/(final.getTime()-initial.getTime()))*100).toFixed(2));
+        let disponibility=100-indisponibility;
+        return res.json({disponibility, monthEventQuantity:events.length});
+
+    } catch (error) {
+       console.log('error :>> ', error);
+        return res.status(404).send({error})
+    }
+}

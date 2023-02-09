@@ -49,6 +49,7 @@ const authenticated = require('../middlewares/authenticated');
  */
 router.get('/',authenticated, status.getStatus);
 router.get('/disponibility',authenticated, status.getDisponibility);
+router.get('/disponibility/month',authenticated, status.getMonthDisponibility);
 
 
 
