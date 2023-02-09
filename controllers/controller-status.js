@@ -2,6 +2,8 @@ const bcrypt = require('bcrypt');
 const axios= require('axios');
 const https=require('https');
 const {parse, stringify, toJSON, fromJSON} = require('flatted');
+const { Event } = require('../bd/sequelize');
+const { Op } = require('sequelize');
 //retornar a pagina inicial
 exports.getStatus = async (req, res) => {
     try {
@@ -22,6 +24,38 @@ exports.getStatus = async (req, res) => {
 
     } catch (error) {
        
+        return res.status(404).send({error})
+    }
+}
+
+//retornar a pagina inicial
+exports.getDisponibility = async (req, res) => {
+    try {
+        let initial= new Date(new Date().getFullYear()+"-01-01")
+        let final= new Date()
+        // console.log('initial :>> ', initial);
+        // console.log('final :>> ', final);
+        const events = await Event.findAll({
+            attributes: ['id','startDate', 'endDate'],
+            where: {
+                startDate: {
+                    [Op.gte]: new Date(initial),
+                    [Op.lt]: new Date(final)
+                }
+            }
+
+        });
+        let tempoGastoAcumulado=0;
+        events.forEach(event => {
+            tempoGastoAcumulado+=(event.endDate-event.startDate)
+            
+        });
+        let indisponibility=parseFloat(((tempoGastoAcumulado/(final.getTime()-initial.getTime()))*100).toFixed(2));
+        let disponibility=100-indisponibility;
+        return res.json({ disponibility,indisponibility });
+
+    } catch (error) {
+       console.log('error :>> ', error);
         return res.status(404).send({error})
     }
 }

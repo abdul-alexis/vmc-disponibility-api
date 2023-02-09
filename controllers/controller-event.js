@@ -8,10 +8,18 @@ const regex = /^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/
 exports.getAllEvent = async (req, res) => {
     try {
 
-        const events = await Event.findAll({
+        const datas = await Event.findAll({
             attributes: ['id', 'title', 'startDate', 'endDate', 'description']
         });
-
+        let events=datas.map((event)=>{
+            return{
+                id:event.id,
+                title:event.title,
+                startDate:event.startDate.toLocaleString(),
+                endDate:event.endDate.toLocaleString(),
+                description:event.description
+            }
+        })
         return res.json({ events });
 
     } catch (error) {

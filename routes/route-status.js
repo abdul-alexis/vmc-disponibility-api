@@ -48,6 +48,7 @@ const authenticated = require('../middlewares/authenticated');
  *             type: string
  */
 router.get('/',authenticated, status.getStatus);
+router.get('/disponibility',authenticated, status.getDisponibility);
 
 
 
