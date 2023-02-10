@@ -32,7 +32,7 @@ exports.getStatus = async (req, res) => {
 exports.getDisponibility = async (req, res) => {
     try {
         let initial= new Date(new Date().getFullYear()+"-01-01")
-        let final= new Date()
+        let final= new Date( new Date().getFullYear()+"-" + (new Date().getMonth()+1)+ "-31")
         // console.log('initial :>> ', initial);
         // console.log('final :>> ', final);
         const events = await Event.findAll({
@@ -50,7 +50,7 @@ exports.getDisponibility = async (req, res) => {
             tempoGastoAcumulado+=(event.endDate-event.startDate)
             
         });
-        let indisponibility=parseFloat(((tempoGastoAcumulado/(final.getTime()-initial.getTime()))*100).toFixed(2));
+        let indisponibility=parseFloat(((tempoGastoAcumulado/(final.getTime()-initial.getTime()))*100).toFixed(4));
         let disponibility=100-indisponibility;
         return res.json({ disponibility,indisponibility });
 
@@ -82,7 +82,7 @@ exports.getMonthDisponibility = async (req, res) => {
             tempoGastoAcumulado+=(event.endDate-event.startDate)
             
         });
-        let indisponibility=parseFloat(((tempoGastoAcumulado/(final.getTime()-initial.getTime()))*100).toFixed(2));
+        let indisponibility=parseFloat(((tempoGastoAcumulado/(final.getTime()-initial.getTime()))*100).toFixed(4));
         let disponibility=100-indisponibility;
         return res.json({disponibility, monthEventQuantity:events.length});
 
