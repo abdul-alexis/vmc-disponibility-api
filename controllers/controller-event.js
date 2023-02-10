@@ -15,8 +15,8 @@ exports.getAllEvent = async (req, res) => {
             return{
                 id:event.id,
                 title:event.title,
-                startDate:event.startDate.toLocaleString(),
-                endDate:event.endDate.toLocaleString(),
+                startDate:event.startDate.toLocaleString('pt-BR'),
+                endDate:event.endDate.toLocaleString('pt-BR'),
                 description:event.description
             }
         })
